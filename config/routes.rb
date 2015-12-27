@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  root 'index#main'
   get 'purchase/strawberry'
   get 'purchase/complete'
   get 'purchase/confirm'
