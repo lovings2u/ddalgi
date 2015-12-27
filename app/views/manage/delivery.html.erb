@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="box col-xs-12 text-center">
+        <h2><span class="label label-danger">발송확인</span></h2><br>
+        <%=form_tag "/manage/message", method: "post" do%>
+            <table border='1' width='100%'>
+                <tr><td></td><td>구매자</td><td>구매자ID</td><td>구매일자</td><td>주문개수</td><td>주문금액(원)</td>
+                <% @complete.each do |x| %>
+                    <tr><td><input type='checkbox' name='user[]' value='<%= x.phone_number %>' class='<%= x.order_index %>'></td><td><%= x.customer_name %></td><td><%= x.phone_number %></td><td><%= x.order_date %></td><td><%= x.prod_volume %>개</td><td><%= x.prod_price %>원</td></tr>
+                <% end %>
+            </table>
+            <br><br>
+        <p><button type="button" class="btn btn-warning" id='read'>수신자명단 입력하기</button>
+            <button type="reset" class="btn btn-info" id='reset'>초기화하기</button></p>
+       <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">수신자명단</span>
+            <input id="number_list" name="number_list" type="text" class="form-control" aria-describedby="basic-addon1">
+            <input id="id_list" name="id_list" type="hidden" class="form-control">
+        </div>
+        <p><textarea class="form-control" id="contentHelp" style="height: 150px;"name="message_body" row="10" cols="50"></textarea>
+            <p id='remaining'></p>
+            <p><button type="submit" class="btn btn-success">메시지 보내기</button></p>
+        <% end %>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+//Word Counting
+// textarea id, 제한 글자 수, 입력 결과 메세지 저장 ID
+function limitCharacters(textid, limit, limitid)
+{
+        // 잆력 값 저장
+        var text = $('#'+textid).val();
+        // 입력값 길이 저장
+        var textlength = text.length;
+
+        console.log(text + "," + textlength);
+        if(textlength > limit)
+        {
+                $('#' + limitid).html('글내용을 '+limit+
+                '자 이상 쓸수 없습니다!');
+                // 제한 글자 길이만큼 값 재 저장
+                $('#'+textid).val(text.substr(0,limit));
+                return false;
+        }
+        else
+        {
+                $('#' + limitid).html('쓸수 있는 글자가 '+ (limit - textlength) +
+                ' 자 남았습니다.');
+                return true;
+        }
+}
+$(function(){
+        $('#contentHelp').keyup(function(){
+            limitCharacters('contentHelp', 40, 'remaining');
+        })
+});
+// /Word Counting
+<!--Input Receiver -->
+var list=[];
+var id=[];
+$('#read').click(function(){
+    $('input:checked').each(function(){
+        list.push($(this).val());
+        id.push($(this).attr('class'));
+    });
+
+    console.log(list);
+    console.log(id);
+    var receiver = list.join(',');
+    receiver = '"'+ receiver + '"';
+    $('#number_list').val(receiver);
+    $('#id_list').val(id);
+})
+$('#reset').click(function(){
+    list=[];
+    id=[];
+})
+<!-- /Input Receiver -->
+
+</script>
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+</style>

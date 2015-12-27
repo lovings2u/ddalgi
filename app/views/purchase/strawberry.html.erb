@@ -1,0 +1,221 @@
+<!-- Main Container -->
+<div class="container">
+    <div class="box" id="buy">
+            <div class="col-lg-12 col-md-12 col-xs-12">
+            <h3 class="intro-text text-center" style="white-space: nowrap">
+                선물용<strong> likeddalgi</strong> 주문하기
+            </h3>
+            <hr>
+        </div>
+        
+        <div class="col-md-12 text-center">
+            <img src="../img/strawberry/image1.png" width="100%;" class="thumbnail">
+        
+        </div> 
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <h4 class="intro-text text-center">
+                <strong>주문서</strong> 작성하기
+            </h4>
+            <hr>
+        </div>        <div class="col-lg-4 col-md-4"></div>
+        <div class="col-lg-4 col-md-4 col-xs-12 form_input" align="center">
+            <%=form_tag "/purchase/confirm", method: "post" do%>
+                <p><strong>주문하시는분 성명을 적어주세요~</strong><br>입금자명과 동일하게 적어주세요!
+                <input type="text" name="buyer_name" class="buyer_name form-control"></p>
+                <p><strong>딸기청을 선물받을 주소를 적어주세요~</strong>
+                <div class="input-group">
+                    <input readonly type="text" name="address" class="address form-control postcodify_address">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" id="search_button">주소찾기</button>
+                    </span>
+                </div>
+                </p>
+                <br><input tyle="text" name="detail_address" class="detail_address form-control" placeholder="상세주소를 적어주세요~">
+                </p>
+                <p><strong>핸드폰번호를 알려주세요~</strong>
+                <input type="text" name="cell_phone" class="cell_phone form-control" placeholder="-는 빼고 적어주세요~"></p>    
+                
+                <!--
+                <p>구매 상품
+                <select id="product" name="product" class=" product form-control">
+                    <option value="">메뉴를 선택해주세요</option>
+                    <option value="딸기청 350g">딸기청 350g</option>
+                    <option value="딸기청 250g">딸기청 250g</option>
+                </select>-->
+                <input type="hidden" placeholder="딸기청 500ml" name="product" class="product">
+
+                <p><strong>몇 개를 주문하시겠어요?</strong>
+                <input id="volume" type="number" name="volume" class="volume form-control" min="1" step="1"></p>
+
+                <p><strong>총 구매금액은 이렇게 됩니다~</strong>
+                <input readonly type="text" class="sum form-control"></p>
+                <input readonly type="hidden" name="total" class="total">
+                <!--
+                <p><strong>추천인이 있다면 꼭! 적어주세요~</strong><br>(핸드폰 번호를 적으시면 되요~)
+                <input type="text" name="recomm" class="recomm form-control"></p>
+                -->
+                <button type="submit" class="btn btn-info" onclick="layer_open('layer2');return false;">구매하기</button>
+
+                <div class="layer">
+                    <div class="bg"></div>
+                    <div id="layer2" class="pop-layer">
+                        <div class="pop-container">
+                            <div class="pop-conts">
+                                <!--content //-->
+                                <p class="ctxt mb20">구매내역을 확인하세요.<br>
+                                <div class="confirm_content"></div>    
+                                </p>
+
+                                <div class="btn-r">
+                                    <a href="#" class="cbtn"><button type="button" class="btn btn-warning">닫기</button></a>
+                                    <button type="submit" class="btn btn-info">구매하기</button>
+                                </div>
+                                <!--// content-->
+                            </div>
+                       </div>
+                     </div>
+                </div>
+
+            <% end %>
+        </div>
+        
+        <div class="clearfix"></div>
+    </div>
+<!-- /Order Sheet -->
+
+</div>
+
+<!-- Find Address & Pop-up -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="//cdn.poesis.kr/post/search.min.js"></script>
+<script language="javascript">
+<!-- Address Popup -->
+    $("#postcodify").postcodify();
+    $("#search_button").postcodifyPopUp();
+<!-- /Address Popup -->
+<!-- Auto Calculate -->
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
+    $('#volume').change(function(){
+        var product = 19000;
+        var volume = $('#volume').val();
+        console.log(product);
+        console.log(volume);
+        var cal = product * volume;
+        console.log(cal);
+        $('.sum').val(numberWithCommas(cal));
+        $('.total').val(cal);
+    });        
+
+<!-- /Auto Calculate -->
+
+<!-- Popup Script -->
+    function layer_open(el){
+        if($('.buyer_name').val()==""){
+            $('.buyer_name').focus();
+            return;
+        }
+        if($('.address').val()==""){
+            $('.address').focus();
+            return;
+        }
+        if($('.detail_address').val()==""){
+            $('.detail_address').focus();
+            return;
+        }
+        if($('.cell_phone').val()==""){
+            $('.cell_phone').focus();
+            return;
+        }
+        if($('.volume').val()==""){
+            $('.volume').focus();
+            return;
+        }
+        else{
+            var cell_phone = $('.cell_phone').val();
+            var address = $('.address').val();
+            var detail = $('.detail_address').val();
+            var buyer = $('.buyer_name').val();  
+            var volume = $('.volume').val();
+            var total = $('.total').val();
+
+        $('.confirm_content').html("<table style='width: 100%;'><tr><td style='white-space: nowrap;'>주문자 ID</td><td>" + cell_phone + "</td></tr><tr><td style='white-space: nowrap;'>배송지</td><td style='word-break: keep-all'>" + address +" "+ detail + "</td><tr><td style='white-space: nowrap;'>주문자 성명</td><td>" + buyer + "</td></tr><tr><td style='white-space: nowrap;'>주문개수</td><td>" + volume + "개</td></tr><tr><td style='white-space: nowrap;'>총 결제금액</td><td>" + numberWithCommas(total) + "</td></td></table>");
+
+
+        var temp = $('#' + el);
+        var bg = temp.prev().hasClass('bg');    //dimmed 레이어를 감지하기 위한 boolean 변수
+
+        if(bg){
+            $('.layer').fadeIn();   //'bg' 클래스가 존재하면 레이어가 나타나고 배경은 dimmed 된다. 
+        }else{
+            temp.fadeIn();
+        }
+
+        // 화면의 중앙에 레이어를 띄운다.
+        if (temp.outerHeight() < $(document).height() ) temp.css('margin-top', '-'+temp.outerHeight()/2+'px');
+        else temp.css('top', '0px');
+        if (temp.outerWidth() < $(document).width() ) temp.css('margin-left', '-'+temp.outerWidth()/2+'px');
+        else temp.css('left', '0px');
+
+        temp.find('a.cbtn').click(function(e){
+            if(bg){
+                $('.layer').fadeOut(); //'bg' 클래스가 존재하면 레이어를 사라지게 한다. 
+            }else{
+                temp.fadeOut();
+            }
+            e.preventDefault();
+        });
+
+        $('.layer .bg').click(function(e){  //배경을 클릭하면 레이어를 사라지게 하는 이벤트 핸들러
+            $('.layer').fadeOut();
+            e.preventDefault();
+        });
+        }
+    }               
+<!-- /Popup Script -->
+</script>
+<!-- /Find Address & Pop-up-->
+
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+.layer {display:none; position:fixed; _position:absolute; top:0; left:0; width:100%; height:100%; z-index:100;}
+    .layer .bg {position:absolute; top:0; left:0; width:100%; height:100%; background:#000; opacity:.5; filter:alpha(opacity=50);}
+    .layer .pop-layer {display:block;}
+
+.pop-layer {display:none; position: absolute; top: 50%; left: 50%; width: 90%; height:auto;  background-color:#fff; border: 5px solid #3571B5; z-index: 10;}  
+.pop-layer .pop-container {padding: 20px 25px;}
+.pop-layer p.ctxt {color: #666; line-height: 25px;}
+.pop-layer .btn-r {width: 100%; margin:10px 0 20px; padding-top: 10px; border-top: 1px solid #DDD; text-align:right;}
+td {
+    border-right: 1px solid;
+    text-align: center;
+}
+#ad!{
+    word-break: keep-all;
+}
+</style>

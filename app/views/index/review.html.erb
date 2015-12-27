@@ -1,0 +1,92 @@
+<div>
+	<ul id='instaPics'></ul>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<script type="text/javascript">
+<!-- IMAGE FROM INSTAGRAM -->
+jQuery(function($) {  
+    var tocken = "2021177650.197c6e7.d7a49c18f1f140208acf6c6d24fc880c"; /* Access Tocken 입력 */  
+    var count = "9";  
+    $.ajax({  
+        type: "GET",  
+        dataType: "jsonp",  
+        cache: false,  
+        url: "https://api.instagram.com/v1/users/self/media/recent/?access_token=" + tocken + "&count=" + count,  
+        success: function(response) {  
+         if ( response.data.length > 0 ) {  
+              for(var i = 0; i < response.data.length; i++) {  
+                   var insta = '<li style="height:0px;"><div class="insta-box">';  
+                   insta += "<a target='_blank' href='" + response.data[i].link + "'>";  
+                   insta += "<div class'image-layer'>";  
+                   //insta += "<img src='" + response.data[i].images.thumbnail.url + "'>";  
+                   insta += '<img src="' + response.data[i].images.thumbnail.url + '">';  
+                   insta += "</div>";  
+                   //console.log(response.data[i].caption.text);  
+                   if ( response.data[i].caption !== null ) {  
+                        insta += "<div class='caption-layer'>";  
+                        if ( response.data[i].caption.text.length > 0 ) {  
+                             insta += "<p class='insta-caption'>" + response.data[i].caption.text + "</p>"  
+                        }  
+                        insta += "<span class='insta-likes'>" + response.data[i].likes.count + " Likes</span>";  
+                        insta += "</div>";  
+                   }  
+                   insta += "</a>";  
+                   insta += "</div></li>";  
+                   $("#instaPics").append(insta);  
+              }  
+         }  
+         $(".insta-box").hover(function(){  
+              $(this).find(".caption-layer").css({"backbround" : "rgba(255,255,255,0.7)", "display":"block"});  
+         }, function(){  
+              $(this).find(".caption-layer").css({"display":"none"});  
+         });  
+        }  
+       });  
+});
+<!-- image from instagram -->
+
+</script>
+<style type="text/css">
+#instaPics {  
+    max-width: 100%;  
+    overflow: hidden;  
+}
+.insta-box {  
+    position: relative;  
+    width: 150px;  
+    height: 150px;  
+    float: left;  
+    margin: 4px;  
+}  
+.image-layer {  
+    overflow: hidden;  
+    width: 100%;  
+    height: 100%;  
+}  
+.image-layer img {  
+    max-width: 100%;  
+}  
+.caption-layer {  
+    display: none;  
+    position: absolute;  
+    top: 0;  
+    background: rgba(255,255,255,0.8);  
+    height: 100%;  
+    width: 100%;  
+    font-size: 10px;  
+    color: #333;  
+}  
+.insta-likes {  
+    float: right;  
+}
+
+.album-wrap {position:relative; width:221px; height:256px; margin:0 auto; overflow:hidden;}
+.album-wrap ul.album {position:absolute;}
+.album-wrap ul.album li {float:left; width:221px;}
+
+ul.bt-roll {width:110px; margin:0 auto; margin-top:20px;}
+ul.bt-roll li {float:left; margin-right:5px;}
+
+
+</style>

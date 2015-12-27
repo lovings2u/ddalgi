@@ -1,0 +1,124 @@
+<!-- Order Sheet -->
+<div class="container">
+    <div class="box" id="buy">
+        <div class="col-lg-12 col-md-12 col-xs-12 text-center">
+            <h3 class="intro-text" style="word-break: keep-all;">
+                <h3><strong><%=@username%></strong>님의 상품주문이 <br>완료되었습니다
+            </h3>
+            <hr>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12 text-center">
+            <div class="space"></div>
+            
+            <table class="ci" width="100%">
+                <tr>
+                    <td class="left">주문번호</td>
+                    <td class="right"><%= @confirm.order_index %></td>
+                </tr>
+                <tr>
+                    <td class="left">주문자ID</td>
+                    <td class="right"><%= @confirm.phone_number %></td>
+                </tr>
+                <tr>
+                    <td class="left">배송지</td>
+                    <td class="right"><%= @confirm.address %> <%= @confirm.detail_address %></td>
+                </tr>
+                <tr>
+                    <td class="left">주문자</td>
+                    <td class="right"><%= @confirm.customer_name %></td>
+                </tr>
+                <tr>
+                    <td class="left">주문상품</td>
+                    <td class="right"><strong>like ddalgi 딸기청 500ml</storng> / <%= @confirm.prod_volume %>개</td>
+                </tr>
+                <tr>
+                    <td class="left">총 결제금액</td>
+                    <td class="right"><span id="sum"></span>원</td>
+                </tr>
+            </table>
+            <br>
+            <h4>선물용 메시지를 대신 보내드려요~</h4>
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-xs-12" align="center" style="margin-top:50px;">
+        <a href="/index/main" class="btn btn-default" style="font-size: 20px; text-align:center;">
+            <span style="color: #f05f40;">다른 메뉴보기</span></a>
+        <a href="/purchase/present" class="btn btn-success" style="font-size: 20px; text-align:center;">
+            <span>선물메시지 작성하기</span></a>
+        </div>
+
+
+
+        <div class="clearfix"></div>
+    </div>
+<!-- /Order Sheet -->
+
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    $(document).ready(function(){
+        $('#sum').html(numberWithCommas(<%=@confirm.prod_price%>));
+    });
+</script>
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+td {
+    padding: 15px;
+    text-align: center;
+}
+table {
+    border-top: 3px solid;
+    border-bottom: 2px solid;
+}
+.left {
+    background: rgba(247,247,247,0.6);
+    border-right: 1px solid;
+    white-space: nowrap;
+}
+.right{
+    word-break: keep-all;
+}
+.space{
+    padding: 15px;
+}
+.up {
+    background: rgba(247,247,247,0.6);
+    border-bottom: 1px solid;
+    font-size: 15px;
+}
+.down {
+    margin-top: 10px;
+    border-bottom: 10px;
+    font-size: 15px;
+}
+.won {
+    font-size: 1em;
+}
+</style>

@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="box">
+        <%= @list %><br>
+        <%= @name %><br>
+        <%= @body %><br>
+        <%= @index %><br>
+        <p>입금확인자</p>
+        <% @progress.each do |x| %>
+            <p><%= x.customer_name %> / <%= x.prod_volume %>개 / <%= x.prod_price %> / <%= x.progress %> / <%= x.delivery_date %></p>
+        <% end %>
+        <p>발송예정자</p>
+        <% @delivery.each do |x| %>
+            <p><%= x.customer_name %> / <%= x.prod_volume %>개 / <%= x.prod_price %> / <%= x.progress %> / <%= x.delivery_date %></p>
+        <% end %>
+    </div>
+</div>
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+</style>

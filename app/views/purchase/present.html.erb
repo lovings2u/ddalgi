@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="box col-xs-12 text-center">
+        <h2><span class="label label-success">선물 메세지 적기</span></h2><br>
+        <%=form_tag "/purchase/save_number", method: "post" do%>    
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">선물 받으시는분</span>
+            <input id="number_list" name="number_list" type="text" class="form-control" aria-describedby="basic-addon1">
+        </div>
+        <p><textarea class="form-control" id="contentHelp" style="height: 150px;"name="message_body" row="5" cols="50"></textarea>
+            <p id='remaining'></p>
+            <p><button type="submit" class="btn btn-success">메시지 예약하기</button></p>
+        </form>
+        <% end %>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+//Word Counting
+// textarea id, 제한 글자 수, 입력 결과 메세지 저장 ID
+function limitCharacters(textid, limit, limitid)
+{
+        // 잆력 값 저장
+        var text = $('#'+textid).val();
+        // 입력값 길이 저장
+        var textlength = text.length;
+
+        console.log(text + "," + textlength);
+        if(textlength > limit)
+        {
+                $('#' + limitid).html('글내용을 '+limit+
+                '자 이상 쓸수 없습니다!');
+                // 제한 글자 길이만큼 값 재 저장
+                $('#'+textid).val(text.substr(0,limit));
+                return false;
+        }
+        else
+        {
+                $('#' + limitid).html('쓸수 있는 글자가 '+ (limit - textlength) +
+                ' 자 남았습니다.');
+                return true;
+        }
+}
+$(function(){
+        $('#contentHelp').keyup(function(){
+            limitCharacters('contentHelp', 40, 'remaining');
+        })
+});
+// /Word Counting
+
+</script>
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+</style>
