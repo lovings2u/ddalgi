@@ -1,9 +1,9 @@
 ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add label: "Charge", url: "http://www.activeadmin.info",
+      menu.add label: "Charge", url: "https://likeddalgi.com/manage/charged",
                                           html_options: { target: :blank }
-      menu.add label: "Delivery", url: "http://www.activeadmin.info",
+      menu.add label: "Delivery", url: "https://likeddalgi.com/manage/delivery",
                                           html_options: { target: :blank }                                    
       admin.add_current_user_to_menu  menu
       admin.add_logout_button_to_menu menu

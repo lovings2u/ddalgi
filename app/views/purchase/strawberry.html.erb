@@ -33,7 +33,7 @@
                 <br><input tyle="text" name="detail_address" class="detail_address form-control" placeholder="상세주소를 적어주세요~">
                 </p>
                 <p><strong>핸드폰번호를 알려주세요~</strong>
-                <input type="text" name="cell_phone" class="cell_phone form-control" placeholder="-는 빼고 적어주세요~"></p>    
+                <input type="text" name="cell_phone" class="cell_phone form-control" placeholder="-는 빼고 숫자만 적어주세요~"></p>    
                 
                 <!--
                 <p>구매 상품
@@ -45,10 +45,10 @@
                 <input type="hidden" placeholder="딸기청 500ml" name="product" class="product">
 
                 <p><strong>몇 개를 주문하시겠어요?</strong>
-                <input id="volume" type="number" name="volume" class="volume form-control" min="1" step="1"></p>
+                <input id="volume" type="number" name="volume" class="volume form-control" min="1" max="999" step="1"></p>
 
                 <p><strong>총 구매금액은 이렇게 됩니다~</strong>
-                <input readonly type="text" class="sum form-control"></p>
+                <input readonly type="text" class="sum form-control" name="message_price"></p>
                 <input readonly type="hidden" name="total" class="total">
                 <!--
                 <p><strong>추천인이 있다면 꼭! 적어주세요~</strong><br>(핸드폰 번호를 적으시면 되요~)
@@ -89,6 +89,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="//cdn.poesis.kr/post/search.min.js"></script>
 <script language="javascript">
+    $(document).ready(function(){
+        window.history.forward(1);
+    });
 <!-- Address Popup -->
     $("#postcodify").postcodify();
     $("#search_button").postcodifyPopUp();

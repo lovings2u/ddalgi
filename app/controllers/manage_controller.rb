@@ -37,18 +37,6 @@ class ManageController < ApplicationController
 			    end
 	    	elsif charged.progress == 'CHARGED'
 	    		charged.progress='COMPLETE'
-	    		unless charged.present_number.nil?
-	    			Unirest.post("http://api.openapi.io/ppurio/1/message/sms/skyhan1106",
-				    headers:{:"x-waple-authorization" => "MzI4Ni0xNDQ1NjY2Nzg5OTE4LWRiZGZhOTYwLWVjNWUtNDJhZS05ZmE5LTYwZWM1ZTUyYWU5NQ=="},
-				    parameters:{ 
-				    :dest_phone => charged.present_number, 
-				    :send_phone => "01027655429" , 
-				    :send_name => "like ddalgi" , 
-				    :subject => "like ddalgi" , 
-				    :msg_body => charged.present_message, 
-				    :apiVersion => "1" , 
-				    :id => "skyhan1106" })
-	    		end
 	    	end
 	    	charged.save
 	    end
