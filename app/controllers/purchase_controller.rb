@@ -19,26 +19,9 @@ class PurchaseController < ApplicationController
                   customer_name: params[:buyer_name])
     message1 = od.customer_name + "님! 라이크딸기 딸기청을 주문해주셔서 감사합니다!! 입금 정보는"
     message2 = "신한 110-209-493870 이정석 / " + params[:message_price].to_s + "원 입니다."
-    Unirest.post("http://api.openapi.io/ppurio/1/message/sms/skyhan1106",
-    headers:{:"x-waple-authorization" => "MzI4Ni0xNDQ1NjY2Nzg5OTE4LWRiZGZhOTYwLWVjNWUtNDJhZS05ZmE5LTYwZWM1ZTUyYWU5NQ=="},
-    parameters:{ 
-    :dest_phone => od.phone_number , 
-    :send_phone => "01027655429" , 
-    :send_name => "like ddalgi" , 
-    :subject => "주문완료" , 
-    :msg_body =>  message1, 
-    :apiVersion => "1" , 
-    :id => "skyhan1106" })
-    Unirest.post("http://api.openapi.io/ppurio/1/message/sms/skyhan1106",
-    headers:{:"x-waple-authorization" => "MzI4Ni0xNDQ1NjY2Nzg5OTE4LWRiZGZhOTYwLWVjNWUtNDJhZS05ZmE5LTYwZWM1ZTUyYWU5NQ=="},
-    parameters:{ 
-    :dest_phone => od.phone_number , 
-    :send_phone => "01027655429" , 
-    :send_name => "like ddalgi" , 
-    :subject => "주문완료" , 
-    :msg_body =>  message2, 
-    :apiVersion => "1" , 
-    :id => "skyhan1106" })
+    
+    Phone.send_message(params[:cell_phone],message1).deliver_now
+    Phone.send_message(params[:cell_phone],message2).deliver_now
 
 
     redirect_to '/purchase/save_data'
@@ -94,25 +77,4 @@ class PurchaseController < ApplicationController
     response.headers["Pragma"] = "no-cache"
     response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
-  
-#  def success
-#    buy=Customer.where(:phone_number => session[:user_id]).take
-#    @name=buy.name
-#    order=buy.orders.last
-#    @message_body=order.present_message
-#    @message_number=order.present_number
-#  end
-
-#  def message(phone,body)
-#    Unirest.post("http://api.openapi.io/ppurio/1/message/sms/skyhan1106",
-#    headers:{:"x-waple-authorization" => "MzI4Ni0xNDQ1NjY2Nzg5OTE4LWRiZGZhOTYwLWVjNWUtNDJhZS05ZmE5LTYwZWM1ZTUyYWU5NQ=="},
-#    parameters:{ 
-#    :dest_phone => phone , 
-#    :send_phone => "01027655429" , 
-#    :send_name => "like ddalgi" , 
-#    :subject => "주문완료" , 
-#    :msg_body =>  body, 
-#    :apiVersion => "1" , 
-#    :id => "skyhan1106" })
-#  end
 end

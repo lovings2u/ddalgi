@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="box col-xs-12 text-center">
+        <h2><span class="label label-success">주문리스트 출력</span></h2><br>
+        <%=form_tag "/manage/ordersheet", method: "post" do%>
+            <p>발송예정일 선택 :
+                <select name="date">
+                    <option value="<%=@date1%>"><%=@date1%>(<%=@deliver1%>개)</option>
+                    <option value="<%=@date2%>"><%=@date2%>(<%=@deliver2%>개)</option>
+                    <option value="<%=@date3%>"><%=@date3%>(<%=@deliver3%>개)</option>
+                    <option value="<%=@date4%>"><%=@date4%>(<%=@deliver4%>개)</option>
+                    <option value="<%=@date5%>"><%=@date5%>(<%=@deliver5%>개)</option>
+                    <option value="<%=@date6%>"><%=@date6%>(<%=@deliver6%>개)</option>
+                </select>
+            </p>
+            <button type="submit" class="btn btn-warning">리스트보기</button>
+        <% end %>
+    </div>
+</div>
+
+
+<!-- Page CSS -->
+<style>
+body{
+    background: url('../img/strawberry/likeddalgi.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.box {
+    margin-top: 80px;
+    margin-bottom: 20px;
+    padding: 30px 15px;
+    background: #fff;
+    background: rgba(255,255,255,0.9);
+}
+{
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+</style>

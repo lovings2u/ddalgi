@@ -3,8 +3,10 @@ ActiveAdmin.setup do |config|
     admin.build_menu :utility_navigation do |menu|
       menu.add label: "Charge", url: "https://likeddalgi.com/manage/charged",
                                           html_options: { target: :blank }
+      menu.add label: "PrintOrder", url: "https://likeddalgi.com/manage/sheet_style",
+                                          html_options: { target: :blank }
       menu.add label: "Delivery", url: "https://likeddalgi.com/manage/delivery",
-                                          html_options: { target: :blank }                                    
+                                          html_options: { target: :blank }
       admin.add_current_user_to_menu  menu
       admin.add_logout_button_to_menu menu
     end

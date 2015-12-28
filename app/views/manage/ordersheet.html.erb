@@ -1,0 +1,43 @@
+<div style="text-align: center;">
+	<table id="ordersheet" width="100%" style="text-align:center; font-size: 20px; margin-bottom: 50px;" border="1">
+		<tr>
+			<td class="no">이름</td>
+			<td>주소</td>
+			<td class="no">수량</td>
+			<td class="no">전화번호</td>
+			<td class="no">이름</td>
+			<td>주소</td>
+			<td class="no">수량</td>
+			<td class="no">전화번호</td>
+		</tr>
+		<% @complete.each_slice(2) do |order| %>
+		<tr style='height: 50px;' class="sheet_body">
+			<% order.each do |x| %>
+				<td class="no"><%= x.customer_name %></td>
+				<td class="yes"><%= x.address %><br><%= x.detail_address %></td>
+				<td><%= x.prod_volume %></td>
+				<td class="no"><%= x.phone_number %></td>
+			<% end %>
+		</tr>
+		<% end %>
+
+	</table>
+	<button type="button" class="print">출력하기</button>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$('.print').click(function(){
+	window.print();
+})
+</script>
+
+<style>
+.no {
+	white-space: nowrap;
+}
+.yes {
+	white-space: pre-wrap;
+	font-size: 12px;	
+}
+</style>

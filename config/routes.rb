@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   get 'purchase/present'
   post 'purchase/save_number'
   get 'purchase/success'
+  post 'manage/ordersheet'
+  get 'manage/sheet_style'
 
   get 'index/home'
   get 'index/main'
