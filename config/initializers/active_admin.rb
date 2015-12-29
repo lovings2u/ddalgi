@@ -1,13 +1,13 @@
 ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add label: "UnCharged", url: "https://likeddalgi.com/manage/uncharged",
+      menu.add label: "UnCharged", url: "http://likeddalgi.com/manage/uncharged",
                                           html_options: { target: :blank }
-      menu.add label: "Charged", url: "https://likeddalgi.com/manage/charged",
+      menu.add label: "Charged", url: "http://likeddalgi.com/manage/charged",
                                           html_options: { target: :blank }
-      menu.add label: "PrintOrder", url: "https://likeddalgi.com/manage/sheet_style",
+      menu.add label: "PrintOrder", url: "http://likeddalgi.com/manage/sheet_style",
                                           html_options: { target: :blank }
-      menu.add label: "Delivery", url: "https://likeddalgi.com/manage/delivery",
+      menu.add label: "Delivery", url: "http://likeddalgi.com/manage/delivery",
                                           html_options: { target: :blank }
       admin.add_current_user_to_menu  menu
       admin.add_logout_button_to_menu menu
