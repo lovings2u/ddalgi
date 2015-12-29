@@ -9,22 +9,26 @@ Rails.application.routes.draw do
   post 'purchase/message'
   get 'purchase/save_data'
   get 'purchase/nosession'
+
   post 'manage/message'
   get 'manage/charged'
   get 'manage/delivery'
   get 'manage/complete'
   get 'manage/test'
+
   get 'manage/uncharged'
+  post 'manage/again'
   post 'manage/test'
-  get 'purchase/present'
-  post 'purchase/save_number'
+
   get 'purchase/success'
   post 'manage/ordersheet'
   get 'manage/sheet_style'
 
+
   get 'index/home'
   get 'index/main'
   get 'index/review'
+  get 'index/mobile'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

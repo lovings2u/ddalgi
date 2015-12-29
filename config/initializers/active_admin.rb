@@ -1,7 +1,9 @@
 ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
-      menu.add label: "Charge", url: "https://likeddalgi.com/manage/charged",
+      menu.add label: "UnCharged", url: "https://likeddalgi.com/manage/uncharged",
+                                          html_options: { target: :blank }
+      menu.add label: "Charged", url: "https://likeddalgi.com/manage/charged",
                                           html_options: { target: :blank }
       menu.add label: "PrintOrder", url: "https://likeddalgi.com/manage/sheet_style",
                                           html_options: { target: :blank }
