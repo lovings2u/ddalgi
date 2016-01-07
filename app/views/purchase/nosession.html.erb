@@ -1,4 +1,10 @@
 <script type="text/javascript">
-	alert("세션이 만료되었습니다." + "자세한 문의는 카카오톡 옐로아이디로 해주세요~")
-	location.replace("/index/home");
+	var txt;
+	var r = confirm("세션이 만료되었습니다." + "자세한 문의는 카카오톡 옐로아이디로 해주세요~" + "확인 시 연락페이지로 연결됩니다.");
+	if (r == true) {
+		location.replace("http://plus.kakao.com/home/@likeddalgi");
+	} else {
+		location.replace("/index/home");
+	}
+
 </script>

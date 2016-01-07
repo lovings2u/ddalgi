@@ -5,7 +5,8 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.boolean :admin , default: false
-      t.string :last_message
+      t.string :charged_last_message
+      t.string :delivery_last_message
       
       ## Recoverable
       t.string   :reset_password_token

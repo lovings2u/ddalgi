@@ -3,6 +3,11 @@ class ManageController < ApplicationController
 	layout false, only: [:ordersheet]
 	def charged
 		@deposit = Order.where(:progress => 'IN PROGRESS').all
+		if Date.today.between?(Date.today.beginning_of_week, Date.today.end_of_week - 3)
+	      @delivery_date = Date.today.next_week(:monday)
+	    else
+	      @delivery_date = Date.today.next_week(:thursday)
+	    end
 	end
 	def uncharged
 		@person = Order.where(:progress => 'IN PROGRESS').all
@@ -12,27 +17,36 @@ class ManageController < ApplicationController
 		redirect_to "/manage/complete"
 	end
 
+	def delete
+		index = params[:id_list].split(',')
+	    index.each do |x|
+	    	uncharged=Order.where(:order_index => x).take
+	    	charged.progress == 'CANCELED'
+	    	charged.save
+	    end
+	end
+
 	def message
 
 		Phone.send_message(params[:number_list],params[:message_body]).deliver_now
 
-		current_admin_user.last_message = params[:message_body]
-		current_admin_user.save
-
-	    index = params[:id_list].split(',')
+		index = params[:id_list].split(',')
 	    index.each do |x|
 	    	charged=Order.where(:order_index => x).take
 	    	if charged.progress == 'IN PROGRESS'
 	    		charged.progress='CHARGED'
+	    		current_admin_user.charged_last_message = params[:message_body]
 	    		if Date.today.between?(Date.today.beginning_of_week, Date.today.end_of_week - 3)
 			      charged.delivery_date = Date.today.next_week(:monday)
 			    else
 			      charged.delivery_date = Date.today.next_week(:thursday)
 			    end
 	    	elsif charged.progress == 'CHARGED'
+	    		current_admin_user.delivery_last_message = params[:message_body]
 	    		charged.progress='COMPLETE'
 	    	end
 	    	charged.save
+	    	current_admin_user.save
 	    end
 
 	    redirect_to '/manage/complete'
