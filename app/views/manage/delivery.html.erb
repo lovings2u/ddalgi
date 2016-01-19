@@ -16,7 +16,7 @@
             <input id="number_list" name="number_list" type="text" class="form-control" aria-describedby="basic-addon1">
             <input id="id_list" name="id_list" type="hidden" class="form-control">
         </div>
-        <textarea class="form-control" id="contentHelp" style="height: 150px;"name="message_body" row="10" cols="50" placeholder="<% unless current_admin_user.last_message.nil? %><%= current_admin_user.delivery_last_message %><% end %>" ></textarea>
+        <textarea class="form-control" id="contentHelp" style="height: 150px;"name="message_body" row="10" cols="50" placeholder="<% unless current_admin_user.delivery_last_message.nil? %><%= current_admin_user.delivery_last_message %><% end %>" ></textarea>
             <p>이모티콘 및 공백 문자 입력시 문자가 발송되지 않습니다.</p>
             <p id='remaining'></p>
             <p><button type="submit" class="btn btn-success">메시지 보내기</button></p>

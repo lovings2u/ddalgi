@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'whenever', :require => false
 gem 'unirest'
 gem 'devise'
 gem 'activeadmin', '~>1.0.0.pre2'

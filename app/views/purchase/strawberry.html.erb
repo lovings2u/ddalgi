@@ -32,21 +32,28 @@
                 </p>
                 <br><input tyle="text" name="detail_address" class="detail_address form-control" placeholder="상세주소를 적어주세요~">
                 </p>
-                <p><strong>핸드폰번호를 알려주세요~</strong>
+                <p><strong>핸드폰번호를 알려주세요~</strong><br>
+                    구분자 없이 숫자만 입력해주세요~<br>
                 <input type="text" name="cell_phone" class="cell_phone form-control" placeholder="-는 빼고 숫자만 적어주세요~"></p>    
                 
-                <!--
-                <p>구매 상품
+                
+                <p><b>구매 상품</b>
                 <select id="product" name="product" class=" product form-control">
                     <option value="">메뉴를 선택해주세요</option>
-                    <option value="딸기청 350g">딸기청 350g</option>
-                    <option value="딸기청 250g">딸기청 250g</option>
-                </select>-->
+                    <option value="딸기청 500ml">딸기청 500ml(19,000원)</option>
+                    <option value="딸기청 250ml">딸기청 250ml(10,000원)</option>
+                </select>
                 <input type="hidden" placeholder="딸기청 500ml" name="product" class="product">
 
                 <p><strong>몇 개를 주문하시겠어요?</strong>
                 <input id="volume" type="number" name="volume" class="volume form-control" min="1" max="999" step="1"></p>
-
+                <p>
+                    <button type="button" id="bucket" class="btn btn-success">장바구니에 담기</button>
+                    <button type="button" id="clear" class="btn btn-warning">비우기</button>
+                    <hr style="max-width: 80%;">
+                    <div id="totalProduct"></div>
+                    <hr style="max-width: 80%;">
+                </p>
                 <p><strong>총 구매금액은 이렇게 됩니다~</strong>
                 <input readonly type="text" class="sum form-control" name="message_price"></p>
                 <input readonly type="hidden" name="total" class="total">
@@ -103,17 +110,68 @@
     }
     
     $('#volume').change(function(){
-        var product = 19000;
+        var product = 0;
+       
+        switch($('#product').val()){
+            case "딸기청 500ml":
+                product = 19000;
+                break;
+            case "딸기청 250ml":
+                product = 10000;
+                break;
+        }
+            
         var volume = $('#volume').val();
         console.log(product);
         console.log(volume);
         var cal = product * volume;
         console.log(cal);
-        $('.sum').val(numberWithCommas(cal));
-        $('.total').val(cal);
     });        
 
 <!-- /Auto Calculate -->
+
+<!-- total button -->
+    $(document).ready(function(){
+        $('.total').val(0);
+    })
+    $('#bucket').click(function(){
+        var product = $('#product').val();
+        var volume = $('#volume').val();
+        var price = 0;
+
+        switch(product){
+            case "딸기청 500ml":
+                price = 19000;
+                break;
+            case "딸기청 250ml":
+                price = 10000;
+                break;
+        }
+
+        var total = "<h3><label class='label label-primary'>" + product + " / " + volume + " 병</label></h3>";
+
+        $('#totalProduct').append(total);
+        
+        volume = parseInt(volume);
+
+        var cal = parseInt($('.total').val());
+
+        var totalPrice = price * volume + cal; 
+        console.log(price,volume,cal,totalPrice);
+        $('.sum').val(numberWithCommas(totalPrice));
+        $('.total').val(totalPrice);
+
+    })
+
+    $('#clear').click(function(){
+        $('#totalProduct').empty();
+        $('total').val(0);
+    })
+
+
+<!--/total button -->
+
+
 
 <!-- Popup Script -->
     function layer_open(el){

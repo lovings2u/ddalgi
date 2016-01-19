@@ -5,6 +5,10 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
       t.boolean :admin , default: false
+
+      # Saved SMS message
+      t.string :cancel_last_message
+      t.string :uncharged_last_message
       t.string :charged_last_message
       t.string :delivery_last_message
       

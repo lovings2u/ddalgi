@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'manage/complete'
   get 'manage/test'
 
+  get 'manage/cancel'
+  post 'manage/delete'
+
   get 'manage/uncharged'
   post 'manage/again'
   post 'manage/test'

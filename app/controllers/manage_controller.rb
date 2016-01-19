@@ -16,14 +16,20 @@ class ManageController < ApplicationController
 		Phone.send_message(params[:number_list],params[:message_body]).deliver_now
 		redirect_to "/manage/complete"
 	end
+	def cancel
+		@person = Order.where(:progress => 'IN PROGRESS').all
+	end
 
 	def delete
+		Phone.send_message(params[:number_list],params[:message_body]).deliver_now
 		index = params[:id_list].split(',')
 	    index.each do |x|
 	    	uncharged=Order.where(:order_index => x).take
+	    	current_admin_user.cancel_last_message = params[:message_body]
 	    	charged.progress == 'CANCELED'
 	    	charged.save
 	    end
+	    redirect_to "/manage/complete"
 	end
 
 	def message
